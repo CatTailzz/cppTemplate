@@ -1,4 +1,3 @@
-# cppTemplate
-My c++ Template 
+# cppTemplate —— My c++ Template 
 
-check the code in "template" folder
+Please check the code in "template" folder
