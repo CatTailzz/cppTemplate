@@ -4,6 +4,9 @@
         "ios": "cpp",
         "__node_handle": "cpp",
         "random": "cpp",
-        "istream": "cpp"
+        "istream": "cpp",
+        "__split_buffer": "cpp",
+        "deque": "cpp",
+        "list": "cpp"
     }
 }
