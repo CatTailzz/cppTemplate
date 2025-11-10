@@ -1,52 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-const int MAXN = 6e3 + 10;
 
+// -----------------------欧拉筛------------------------------------------
+const int MX = 1e8 + 10;
+vector<int> primes;
+
+int initprimes = []()
+{
+    bool np[MX + 1]{};
+    for (int i = 2; i <= MX; i++)
+    {
+        if (!np[i])
+            primes.push_back(i);
+        for (int &p : primes)
+        {
+            if (i * p > MX)
+                break;
+            np[i * p] = true;
+            if (i % p == 0)
+                break;
+        }
+    }
+    primes.push_back(MX + 1);
+    primes.push_back(MX + 1); // 防止越界
+    return 0;
+}();
+
+// ----------------------------------------------------------------------------------------
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-    int n;
-    cin >> n;
-    vector<int> r(n + 1);
-    for (int i = 1; i <= n; i++)
+    int n, q;
+    cin >> n >> q;
+    while (q--)
     {
-        cin >> r[i];
+        int t;
+        cin >> t;
+        cout << primes[t - 1] << endl;
     }
-
-    vector<vector<int>> g(n + 1);
-    int x, y;
-    int v[n + 1];
-    memset(v, 0, sizeof v);
-    for (int i = 0; i < n - 1; i++)
-    {
-        cin >> x >> y;
-        g[y].push_back(x);
-        v[x] = 1;
-    }
-    int root;
-    for (int i = 1; i <= n; i++)
-    {
-        if (v[i] != 1)
-        {
-            root = i;
-            break;
-        }
-    }
-    function<pair<int, int>(int)> dfs = [&](int x) -> pair<int, int>
-    {
-        int jp = r[x], not_jp = 0;
-        for (int y : g[x])
-        {
-            auto [come, not_come] = dfs(y);
-            not_jp += max(come, not_come);
-            jp += not_come;
-        }
-        return {jp, not_jp};
-    };
-    auto [jp, not_jp] = dfs(root);
-    cout << max(jp, not_jp);
     return 0;
 }
